@@ -1,36 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const router = express.Router();
-const response = require('./network/response');
+// const router = express.Router();
+
+// const router = require('./components/messages/network')
+const router = require('./network/router');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(router);
+// app.use(router);
 
-
-router.get('/message', function(req, res){
-    console.log(req.headers);
-    res.header({
-        "custom-header" : "nuestro valor personalizado"
-    });
-    // res.send('lista de mensajes')
-    response.success(req, res, 'messages list');
-})
-
-router.post('/message', function(req, res){
-    console.log(req.body);
-    if (req.query.error == "ok"){
-        response.error(req, res, 'Error simulado', 401);
-    }else{
-        response.success(req, res, 'created correctly', 201);
-
-    }
-    
-    // res.status(201).send({error: '', body: 'Created correctly'});
-
-})
-
+router(app);
 
 // app.use('/', function(req, res){
 //     res.send('Hola');
