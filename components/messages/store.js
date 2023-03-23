@@ -11,13 +11,19 @@ function addMessage(message){
 }
 
 
-async function getMessage(filterUser){
-    let filter = {}
-    if(filterUser != null){
+async function getMessages(filterUser){
+    return new Promise ((resolve, reject)=>{
+        let filter = {}
+    if(filterUser !== null){
         filter = {user: filterUser};
     }
-    const messages = await Model.find(filter);
-    return messages;
+    const messages = Model.find(filter).catch(e =>{
+        reject(e);
+    });
+    resolve(messages);
+
+    });
+    
 }
 
 async function updateText(id, message){
@@ -39,7 +45,7 @@ function removeMessage(id){
 
 module.exports = {
     add: addMessage,
-    list: getMessage,
+    list: getMessages,
     updateText: updateText,
     remove: removeMessage,
     //get

@@ -5,6 +5,11 @@ function addUser(user){
     return myUser.save();
 };
 
+function listUsers(){
+    return StorageEvent.list();
+}
+
 module.exports = {
-    add: addUser,
+    addUser,
+    listUsers,
 };
